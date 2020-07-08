@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -13,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.platform.api.user.service.ApiUserService;
 import kr.co.platform.util.JSON.JSONUtil;
 import kr.co.platform.util.base.BaseController;
 
 @RestController
 @RequestMapping("/user")
 public class ApiUserController extends BaseController{
+
+	@Autowired
+	private ApiUserService apiUserService;
 	
 	@RequestMapping(value = {"/join"}, method = {RequestMethod.POST}, 
 			params = {"id", "password"})
@@ -33,7 +38,7 @@ public class ApiUserController extends BaseController{
 				resultMap.put("result", false);
 				return JSONUtil.returnJSON(response, resultMap, HttpStatus.BAD_REQUEST);
 			}
-//			resultMap = apiUserSerivce.insertUserInfo(dataMap);
+			resultMap = apiUserService.insertUserInfo(dataMap);
 			
 		} catch (Exception e) {
 			resultMap.put("result", false);
