@@ -57,7 +57,6 @@ public class ApiUserController extends BaseController{
 					resultMap.put("result", false);
 					return JSONUtil.returnJSON(response, resultMap, HttpStatus.BAD_REQUEST);
 				}
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 				resultMap.put("result", false);
