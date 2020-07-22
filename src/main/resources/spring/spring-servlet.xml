@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task.xsd">
+
+
+	<!-- <context:property-placeholder location="classpath*:spring/conf_#{systemProperties['spring.profiles.active']}.properties" /> -->
+	<!-- <context:property-placeholder location="classpath*:spring/conf_dev.properties" /> -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+	<!-- @ModelAttribute("이름") 에 대한 get 파라미터형식으로의 변환 방지 -->
+	<mvc:annotation-driven ignore-default-model-on-redirect="true" />
+
+	<!-- 	
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg>
+			<value>${mvc.upload_location}</value>
+		</constructor-arg>
+	</bean>
+ 	-->
+	<!-- 업로드 설정 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="314572800" />
+		<property name="uploadTempDir" ref="uploadDirResource" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+</beans>
