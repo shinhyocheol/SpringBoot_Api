@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import kr.co.platform.util.base.BaseController;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin("*")
 public class ApiUserController extends BaseController{
 
 	@Autowired
@@ -27,7 +29,7 @@ public class ApiUserController extends BaseController{
 	
 	@RequestMapping(value = {"/join"}, method = {RequestMethod.POST}, 
 			params = {"id", "password"})
-	public ResponseEntity<String> appUserJoin (
+	public ResponseEntity<String> apiUserJoin (
 			ModelMap model,
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
@@ -49,7 +51,7 @@ public class ApiUserController extends BaseController{
 	
 	@RequestMapping(value = {"/signin"}, method = {RequestMethod.POST},
 			params = {"id", "password"})
-	public ResponseEntity<String> appUserSignin(
+	public ResponseEntity<String> apiUserSignin(
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();

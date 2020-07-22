@@ -5,8 +5,11 @@ bin/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+jdbc.properties
 *.class
+*.jar
 classes/
+settings.gradle
 META-INF/
 
 ### STS ###
