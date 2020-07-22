@@ -36,9 +36,13 @@ public class ApiMainController extends BaseController{
 			HttpServletResponse response) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			
-			resultMap.put("result", true);
-			resultMap.put("msg", "SUCCESS!!");
+			Map<String, Object> dataMap = validateParams(request);
+			resultMap = apiMainService.getMainData(dataMap);
+			if("NO_EXIST_DATA".equals(resultMap.get("msg"))) {
+				return JSONUtil.returnJSON(response, resultMap, 700);
+			} else if("INTNAL_SERVER_ERROR".equals(resultMap.get("msg"))) {
+				return JSONUtil.returnJSON(response, resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultMap.put("result", false);
