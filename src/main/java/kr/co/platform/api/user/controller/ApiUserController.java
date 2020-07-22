@@ -25,7 +25,8 @@ public class ApiUserController extends BaseController{
 	@Autowired
 	private ApiUserService apiUserService;
 	
-	@RequestMapping(value = {"/join"}, method = {RequestMethod.POST}, params = {"id", "password"})
+	@RequestMapping(value = {"/join"}, method = {RequestMethod.POST}, 
+			params = {"id", "password"})
 	public ResponseEntity<String> appUserJoin (
 			ModelMap model,
 			HttpServletRequest request,
@@ -64,11 +65,5 @@ public class ApiUserController extends BaseController{
 			}
 			return JSONUtil.returnJSON(response, resultMap);
 		}
-	
+
 }
-
-
-
-
-
-
