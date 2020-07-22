@@ -47,4 +47,20 @@ public class ApiUserController extends BaseController{
 		return JSONUtil.returnJSON(response, resultMap);
 	}
 	
+	@RequestMapping(value = {"/signin"}, method = {RequestMethod.POST},
+			params = {"id", "password"})
+	public ResponseEntity<String> appUserSignin(
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("result", false);
+			return JSONUtil.returnJSON(response, resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return JSONUtil.returnJSON(response, resultMap);
+	}
+	
 }
