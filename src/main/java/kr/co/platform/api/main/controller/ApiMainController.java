@@ -37,6 +37,8 @@ public class ApiMainController extends BaseController{
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			
+			resultMap.put("result", true);
+			resultMap.put("msg", "SUCCESS!!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultMap.put("result", false);
