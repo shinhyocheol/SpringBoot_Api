@@ -1,6 +1,7 @@
 package kr.co.platform.api.main.service.impl;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class ApiMainServiceImpl implements ApiMainService{
 	
 	@Autowired
 	private ApiMainDAO apiMainDao;
-
+	
 	@Override
 	public Map<String, Object> getMainData(Map<String, Object> dataMap) {
 		Map<String, Object> resultMap = new HashMap<>();
@@ -25,8 +26,14 @@ public class ApiMainServiceImpl implements ApiMainService{
 			e.printStackTrace();
 			resultMap.put("result", false);
 			resultMap.put("msg", "INTERNAL_SERVER_ERROR");
-		}
+		} 
 		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> getMainListData(Map<String, Object> dataMap) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
