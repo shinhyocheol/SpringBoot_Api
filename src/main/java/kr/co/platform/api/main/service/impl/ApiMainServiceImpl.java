@@ -32,8 +32,16 @@ public class ApiMainServiceImpl implements ApiMainService{
 
 	@Override
 	public Map<String, Object> getMainListData(Map<String, Object> dataMap) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			resultMap.put("result", true);
+			resultMap.put("msg", "SUCCESS");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("result", false);
+			resultMap.put("msg", "INTERNAL_SERVER_ERROR");
+		}
+		return resultMap;
 	}
 	
 }
