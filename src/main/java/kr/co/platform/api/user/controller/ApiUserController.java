@@ -47,23 +47,4 @@ public class ApiUserController extends BaseController{
 		return JSONUtil.returnJSON(response, resultMap);
 	}
 	
-	@RequestMapping(value = {"/sign"}, method = {RequestMethod.POST}, params = {"id", "password"}) 
-	public ResponseEntity<String> appUserSign (
-		HttpServletRequest request,
-		HttpServletResponse response) throws Exception{
-			Map<String, Object> resultMap = new HashMap<>();
-			try {
-				Map<String, Object> dataMap = validateParams(request);
-				if(dataMap == null || dataMap.isEmpty()){
-					resultMap.put("result", false);
-					return JSONUtil.returnJSON(response, resultMap, HttpStatus.BAD_REQUEST);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				resultMap.put("result", false);
-				return JSONUtil.returnJSON(response, resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-			return JSONUtil.returnJSON(response, resultMap);
-		}
-
 }
