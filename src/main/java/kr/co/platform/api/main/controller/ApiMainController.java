@@ -35,19 +35,20 @@ public class ApiMainController extends BaseController{
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
-		try {
-			Map<String, Object> dataMap = validateParams(request);
-			resultMap = apiMainService.getMainData(dataMap);
-			if("NO_EXIST_DATA".equals(resultMap.get("msg"))) {
-				return JSONUtil.returnJSON(response, resultMap, 700);
-			} else if("INTNAL_SERVER_ERROR".equals(resultMap.get("msg"))) {
-				return JSONUtil.returnJSON(response, resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			resultMap.put("result", false);
-			return JSONUtil.returnJSON(response, resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		Map<String, Object> dataMap = validateParams(request);
+		String test = dataMap.get("test").toString(); 
+//		resultMap = apiMainService.getMainData(dataMap);
+//		try {
+//			if("NO_EXIST_DATA".equals(resultMap.get("msg"))) {
+//				return JSONUtil.returnJSON(response, resultMap, 700);
+//			} else if("INTNAL_SERVER_ERROR".equals(resultMap.get("msg"))) {
+//				return JSONUtil.returnJSON(response, resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			resultMap.put("result", false);
+//			return JSONUtil.returnJSON(response, resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
 		return JSONUtil.returnJSON(response, resultMap);
 	}
 	
