@@ -63,7 +63,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter implement
 				.antMatchers("/login").permitAll()
 				.antMatchers("/main").permitAll()
 //				.antMatchers("/main").access("hasAuthority('1') or hasAuthority('2') or hasAuthority('3')")
-				.antMatchers("/**").access("hasAuthority('1') or hasAuthority('2') or hasAuthority('3')")
+//				.antMatchers("/**").access("hasAuthority('1') or hasAuthority('2') or hasAuthority('3')")
 		.and()
 			.cors()
 		.and()

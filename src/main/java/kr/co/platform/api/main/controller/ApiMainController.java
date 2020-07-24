@@ -30,7 +30,7 @@ public class ApiMainController extends BaseController{
 	@Autowired
 	private ApiMainService apiMainService;
 	
-	@RequestMapping(value = {""}, method = {RequestMethod.GET}, params = {"test"})
+	@RequestMapping(value = {""}, method = {RequestMethod.GET})
 	public ResponseEntity<String> apiGetMain(
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -40,7 +40,7 @@ public class ApiMainController extends BaseController{
 		resultMap = apiMainService.getMainData(dataMap);
 		return JSONUtil.returnJSON(response, resultMap);
 		
-//		try {
+//		try { 
 //			if("NO_EXIST_DATA".equals(resultMap.get("msg"))) {
 //				return JSONUtil.returnJSON(response, resultMap, 700);
 //			} else if("INTNAL_SERVER_ERROR".equals(resultMap.get("msg"))) {
