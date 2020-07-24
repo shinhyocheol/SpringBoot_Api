@@ -1,6 +1,7 @@
 package kr.co.platform.api.main.controller;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,18 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.platform.api.main.service.ApiMainService;
 import kr.co.platform.util.JSON.JSONUtil;
 import kr.co.platform.util.base.BaseController;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(value = {"/main"})
 @CrossOrigin("*")
+@Slf4j
 public class ApiMainController extends BaseController{
-	
-	private static final Logger logger = LoggerFactory.getLogger(ApiMainController.class);
 	
 	@Autowired
 	private ApiMainService apiMainService;
 	
-	@RequestMapping(value = {""}, method = {RequestMethod.GET})
+	@RequestMapping(value = {""}, method = {RequestMethod.GET}, params = {"test"})
 	public ResponseEntity<String> apiGetMain(
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -37,7 +38,6 @@ public class ApiMainController extends BaseController{
 		Map<String, Object> dataMap = validateParams(request);
 		
 		resultMap = apiMainService.getMainData(dataMap);
-
 		return JSONUtil.returnJSON(response, resultMap);
 		
 //		try {
