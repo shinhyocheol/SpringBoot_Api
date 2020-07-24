@@ -30,13 +30,15 @@ public class ApiMainController extends BaseController{
 	@Autowired
 	private ApiMainService apiMainService;
 	
-	@RequestMapping(value = {""}, method = {RequestMethod.GET})
+	@RequestMapping(value = {""}, method = {RequestMethod.GET}, params = {"test"})
 	public ResponseEntity<String> apiGetMain(
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		Map<String, Object> dataMap = validateParams(request);
-		String test = dataMap.get("test").toString(); 
+		if(dataMap == null || dataMap.isEmpty()) {
+			return JSONUtil.returnJSON(response, resultMap, HttpStatus.BAD_REQUEST);
+		}
 //		resultMap = apiMainService.getMainData(dataMap);
 //		try {
 //			if("NO_EXIST_DATA".equals(resultMap.get("msg"))) {
