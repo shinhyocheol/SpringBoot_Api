@@ -19,10 +19,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.web.filter.GenericFilterBean;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class JwtAuthFilter extends GenericFilterBean{
-	
-	private Logger logger = LoggerFactory.getLogger(JwtAuthFilter.class);	
-	
+		
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
 	
@@ -56,7 +57,7 @@ public class JwtAuthFilter extends GenericFilterBean{
 				filterChain.doFilter(request, response);
 			}				
 		} catch (Exception e) {
-			logger.debug("Log msg : " + e.getMessage());
+			log.debug("Auth Fail msg : " + e.getMessage());
 		}	
 	}
 	
