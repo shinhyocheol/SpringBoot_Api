@@ -6,4 +6,6 @@ public interface ApiSignService {
 
 	Map<String, Object> insertUserInfo(Map<String, Object> dataMap);
 
+	Map<String, Object> loginUserProcessService(Map<String, Object> dataMap);
+
 }

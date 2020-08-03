@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.platform.api.sign.service.ApiSignService;
 import kr.co.platform.util.JSON.JSONUtil;
 import kr.co.platform.util.base.BaseController;
+import kr.co.platform.util.common.IsEmpty;
 
 @RestController
 @RequestMapping("")
@@ -56,7 +57,12 @@ public class ApiSignController extends BaseController{
 			HttpServletResponse response) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			
+			Map<String, Object> dataMap = validateParams(request);
+			if(IsEmpty.check(dataMap)) {
+				resultMap.put("result", false);
+				return JSONUtil.returnJSON(response, resultMap);
+			}
+			resultMap = apiSignService.loginUserProcessService(dataMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultMap.put("result", false);
