@@ -23,7 +23,7 @@
 		)	
 	</insert>
 	
-	<select id="selectUserInfoById" parameterType="Map" resultMap="Map">
+	<select id="selectUserInfoById" parameterType="Map" resultType="Map">
 		SELECT
 			reg_no AS admin_regno,
 			admin_id,

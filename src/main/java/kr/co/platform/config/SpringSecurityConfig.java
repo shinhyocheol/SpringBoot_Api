@@ -65,6 +65,7 @@ private final JwtTokenProvider jwtTokenProvider;
 				.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 				.antMatchers("/signin").permitAll() // 로그인
 				.antMatchers("/signup").permitAll() // 회원가입
+				.antMatchers("/main").permitAll() // 메인(간단한 통신 테스트용)
 				.anyRequest().access("hasAuthority('1') or hasAuthority('2') or hasAuthority('3')") // 이외 나머지는 권한 필요
 		.and()
             .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedPoint())
