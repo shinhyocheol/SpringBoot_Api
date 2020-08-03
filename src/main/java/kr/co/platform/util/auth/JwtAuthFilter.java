@@ -2,6 +2,7 @@ package kr.co.platform.util.auth;
 
 import java.io.IOException;
 
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -19,12 +20,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.web.filter.GenericFilterBean;
 
+import kr.co.platform.util.auth.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JwtAuthFilter extends GenericFilterBean{
 		
-	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
 	
 	public JwtAuthFilter(JwtTokenProvider jwtTokenProvider) {
@@ -37,27 +38,27 @@ public class JwtAuthFilter extends GenericFilterBean{
 			ServletResponse response, 
 			FilterChain filterChain) throws IOException, ServletException {
 		try {
-			String path = ((HttpServletRequest) request).getRequestURI();
+			HttpServletRequest httpReq = (HttpServletRequest)request;
 			HttpServletResponse httpRes = (HttpServletResponse) response;
-			httpRes.setHeader("Access-Control-Allow-Origin", "*");
-			httpRes.setHeader("Access-Control-Allow-Credentials", "true");
-			httpRes.setHeader("Access-Control-Allow-Methods","*");
-			httpRes.setHeader("Access-Control-Max-Age", "3600");
-			httpRes.setHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept, Key, Authorization");
 			
-			HttpServletRequest httpReqMap = (HttpServletRequest)request;
-			if("OPTIONS".equalsIgnoreCase(httpReqMap.getMethod())) {
+			httpRes.setHeader("Access-Control-Allow-Origin", "*");
+			httpRes.setHeader("Access-Control-Allow-Methods", "*");
+			httpRes.setHeader("Access-Control-Max-Age", "3600");
+			httpRes.setHeader("Access-Control-Allow-Credentials", "true");
+			httpRes.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+			
+			if("OPTIONS".equalsIgnoreCase(httpReq.getMethod())) {
 				httpRes.setStatus(HttpServletResponse.SC_OK);
 			} else {
-				String token = jwtTokenProvider.resolveToken(httpReqMap); 
+				String token = jwtTokenProvider.resolveToken(httpReq); 
 				if (token != null && jwtTokenProvider.validateToken(token)) {
-					Authentication auth = jwtTokenProvider.authenticate(token, httpReqMap);
+					Authentication auth = jwtTokenProvider.getAuthentication(token, httpReq);
 					SecurityContextHolder.getContext().setAuthentication(auth);
 				}				
-				filterChain.doFilter(request, response);
 			}				
+			filterChain.doFilter(request, response);
 		} catch (Exception e) {
-			log.debug("Auth Fail msg : " + e.getMessage());
+			e.printStackTrace();
 		}	
 	}
 	

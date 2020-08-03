@@ -31,7 +31,6 @@ public class ExceptionHandlerService {
 	})
 	public ResponseEntity<Object> BadRequestException(Exception e) {
         e.printStackTrace();
-        log.warn("Exception Msg", e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 	
@@ -42,7 +41,6 @@ public class ExceptionHandlerService {
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ResponseEntity<Object> ClassNotFoundException(Exception e) {
 		e.printStackTrace();
-		log.warn("Exception Msg", e.getMessage());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 	}
 	
@@ -52,7 +50,6 @@ public class ExceptionHandlerService {
 	@ExceptionHandler({AccessDeniedException.class})
 	public ResponseEntity<Object> AccessDeniedException(Exception e) {
 		e.printStackTrace();
-		log.warn("Exception Msg", e.getMessage());
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 	}
 	
@@ -62,7 +59,6 @@ public class ExceptionHandlerService {
 	@ExceptionHandler({Exception.class, RuntimeException.class})
 	public ResponseEntity<Object> ServerException(Exception e) {
 		e.printStackTrace();
-		log.warn("Exception Msg", e.getMessage());
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 	}
 }

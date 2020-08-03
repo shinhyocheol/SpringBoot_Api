@@ -1,7 +1,5 @@
 package kr.co.platform.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.context.annotation.Bean;
 
 
@@ -13,9 +11,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import kr.co.platform.util.auth.CustomAccessDeniedPoint;
+import kr.co.platform.util.auth.CustomAuthenticationEntryPoint;
 import kr.co.platform.util.auth.JwtAuthFilter;
 import kr.co.platform.util.auth.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer{
 	
-	@Autowired
-	private  JwtTokenProvider jwtTokenProvider;
+private final JwtTokenProvider jwtTokenProvider;
 	
 	@Bean
 	@Override
@@ -34,7 +34,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter implement
 	}
 	
 	@Bean
-	public BCryptPasswordEncoder getPasswordEncoder(){
+	public BCryptPasswordEncoder bCryptPasswordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
 	
@@ -42,9 +42,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter implement
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
 			.allowedOrigins("*")
-			.allowedMethods("*")
+			.allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS")
 			.allowedHeaders("*")
-			.exposedHeaders("x-access-token");
+			.exposedHeaders("x-access-token"); 
 	}
 	
 	@Override
@@ -55,17 +55,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter implement
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+			.httpBasic().disable()
 			.csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
-			.authorizeRequests()
-				.antMatchers("/signin").permitAll()
-				.antMatchers("/login").permitAll()
-				.antMatchers("/main").permitAll()
-//				.antMatchers("/main").access("hasAuthority('1') or hasAuthority('2') or hasAuthority('3')")
-//				.antMatchers("/**").access("hasAuthority('1') or hasAuthority('2') or hasAuthority('3')")
-		.and()
 			.cors()
+		.and()
+			.authorizeRequests()
+				.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+				.antMatchers("/signin").permitAll() // 로그인
+				.antMatchers("/signup").permitAll() // 회원가입
+				.anyRequest().access("hasAuthority('1') or hasAuthority('2') or hasAuthority('3')") // 이외 나머지는 권한 필요
+		.and()
+            .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedPoint())
+        .and()
+            .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
 		.and()
 			.addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); 
 	}

@@ -1,4 +1,4 @@
-package kr.co.platform.api.user.controller;
+package kr.co.platform.api.sign.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.platform.api.user.service.ApiUserService;
+import kr.co.platform.api.sign.service.ApiSignService;
 import kr.co.platform.util.JSON.JSONUtil;
 import kr.co.platform.util.base.BaseController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("")
 @CrossOrigin("*")
-public class ApiUserController extends BaseController{
+public class ApiSignController extends BaseController{
 
 	@Autowired
-	private ApiUserService apiUserService;
+	private ApiSignService apiSignService;
 	
-	@RequestMapping(value = {"/join"}, method = {RequestMethod.POST}, 
+	@RequestMapping(value = {"/signup"}, method = {RequestMethod.POST}, 
 			params = {"id", "password"})
 	public ResponseEntity<String> apiUserJoin (
 			ModelMap model,
@@ -40,7 +40,7 @@ public class ApiUserController extends BaseController{
 				resultMap.put("result", false);
 				return JSONUtil.returnJSON(response, resultMap, HttpStatus.BAD_REQUEST);
 			}
-			resultMap = apiUserService.insertUserInfo(dataMap);
+			resultMap = apiSignService.insertUserInfo(dataMap);
 			
 		} catch (Exception e) {
 			resultMap.put("result", false);

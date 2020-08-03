@@ -1,8 +1,8 @@
-package kr.co.platform.api.user.service;
+package kr.co.platform.api.sign.service;
 
 import java.util.Map;
 
-public interface ApiUserService {
+public interface ApiSignService {
 
 	Map<String, Object> insertUserInfo(Map<String, Object> dataMap);
 
