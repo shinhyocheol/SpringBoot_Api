@@ -34,9 +34,9 @@ public class ApiMainController extends BaseController{
 	public ResponseEntity<String> apiGetMain(
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		
 		Map<String, Object> resultMap = new HashMap<>(); 
 		Map<String, Object> dataMap = validateParams(request);
-		
 		resultMap = apiMainService.getMainData(dataMap);
 		return JSONUtil.returnJSON(response, resultMap);
 		
