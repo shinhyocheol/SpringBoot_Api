@@ -11,7 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -38,14 +41,29 @@ private final JwtTokenProvider jwtTokenProvider;
 		return new BCryptPasswordEncoder();
 	}
 	
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-			.allowedOrigins("*")
-			.allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS")
-			.allowedHeaders("*")
-			.exposedHeaders("x-access-token"); 
-	}
+	@Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+        configuration.addExposedHeader("x-access-token");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+	
+//	@Override
+//	public void addCorsMappings(CorsRegistry registry) {
+//		registry.addMapping("/**")
+//			.allowedOrigins("*")
+//			.allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS")
+//			.allowedHeaders("*")
+//			.exposedHeaders("x-access-token"); 
+//	}
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -59,14 +77,14 @@ private final JwtTokenProvider jwtTokenProvider;
 			.csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
-			.cors()
-		.and()
 			.authorizeRequests()
 				.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 				.antMatchers("/signin").permitAll() // 로그인
 				.antMatchers("/signup").permitAll() // 회원가입
 				.antMatchers("/main").permitAll() // 메인(간단한 통신 테스트용)
 				.anyRequest().access("hasAuthority('1') or hasAuthority('2') or hasAuthority('3')") // 이외 나머지는 권한 필요
+		.and()
+			.cors()
 		.and()
             .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedPoint())
         .and()
