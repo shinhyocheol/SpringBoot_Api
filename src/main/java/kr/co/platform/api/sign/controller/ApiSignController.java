@@ -23,7 +23,7 @@ import kr.co.platform.util.common.IsEmpty;
 @RestController
 @RequestMapping("")
 @CrossOrigin("*")
-public class ApiSignController extends BaseController{
+public class ApiSignController extends BaseController {
 
 	@Autowired
 	private ApiSignService apiSignService;
