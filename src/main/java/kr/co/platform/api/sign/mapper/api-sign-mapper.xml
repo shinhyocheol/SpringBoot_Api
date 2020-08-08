@@ -4,35 +4,30 @@
 <mapper namespace="kr.co.platform.api.sign.dao.ApiSignDAO">
 	
 	<insert id="insertUserInfo" parameterType="Map">
-		INSERT INTO admins (
-			admin_id,
-			admin_password,
-			authority_level,
-			admin_name,
-			admin_email,
-			admin_mobile,
-			reg_date
+		INSERT INTO members (
+			member_id, member_password, authority_level, member_name,
+			member_email, member_mobile, reg_date
 		) VALUES (
-			#{id},
-			#{enc_password},
-			#{authority_level},
-			#{name},
-			#{email},
-			#{mobile},
-			NOW()
+			#{id}, #{enc_password}, #{authority_level}, #{name},
+			#{email}, #{mobile}, NOW()
 		)	
 	</insert>
 	
 	<select id="selectUserInfoById" parameterType="Map" resultType="Map">
 		SELECT
-			reg_no AS admin_regno,
-			admin_id,
-			admin_password,
-			authority_level
+			reg_no AS member_regno,
+			member_id,
+			member_password,
+			authority_level,
+			member_name,
+			member_email,
+			member_mobile,
+			DATE_FORMAT(last_login_dt, '%Y.%m.%d %H:%i:%s') AS last_login_dt
 		FROM
-			admins
+			members
 		WHERE
-			admin_id = #{id}
+			member_id = #{id}
+			AND is_deleted != 'Y'
 	</select>
 
 	

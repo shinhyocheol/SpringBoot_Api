@@ -30,6 +30,9 @@ public class ApiSignServieImpl implements ApiSignService {
     public Map<String, Object> insertUserInfo(Map<String, Object> dataMap) {
         Map<String, Object> resultMap = new HashMap<>();
         try {
+        	// 패스워드 암호화
+        	dataMap.put("enc_password", passwordEncoder.encode(dataMap.get("password").toString()));
+        	
             int result = 0;
             result = apiSignDao.insertUserInfo(dataMap);
             if (result == 0) {
@@ -57,14 +60,14 @@ public class ApiSignServieImpl implements ApiSignService {
 				return resultMap;
 			}
 			if(!passwordEncoder.matches(dataMap.get("password").toString(), 
-					resultData.get("admin_password").toString())) {
+					resultData.get("member_password").toString())) {
 				resultMap.put("result", false);
 				resultMap.put("msg", "PASSWORD_DO_NOT_MATCH");
 				return resultMap;
 			}
 			
 			String token = jwtTokenProvider.createToken(resultData);
-			resultData.remove("admin_password");
+			resultData.remove("member_password");
 			resultData.put("x-access-token", token);
 
 			resultMap.put("data", resultData);

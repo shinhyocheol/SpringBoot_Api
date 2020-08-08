@@ -23,7 +23,6 @@ import org.springframework.web.filter.GenericFilterBean;
 import kr.co.platform.util.auth.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class JwtAuthFilter extends GenericFilterBean{
 		
 	private JwtTokenProvider jwtTokenProvider;
@@ -37,18 +36,17 @@ public class JwtAuthFilter extends GenericFilterBean{
 			ServletRequest request, 
 			ServletResponse response, 
 			FilterChain filterChain) throws IOException, ServletException {
-
-		HttpServletRequest httpReq = (HttpServletRequest)request;
-		HttpServletResponse httpRes = (HttpServletResponse) response;
-		
-		httpRes.setHeader("Access-Control-Allow-Origin", "*");
-		httpRes.setHeader("Access-Control-Allow-Methods", "*");
-		httpRes.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-		httpRes.setHeader("Access-Control-Max-Age", "3600");
-		httpRes.setHeader("Access-Control-Allow-Credentials", "true");
-		httpRes.setHeader("Access-Control-Expose-Headers", "x-access-token");
-		
 		try {
+			HttpServletRequest httpReq = (HttpServletRequest)request;
+			HttpServletResponse httpRes = (HttpServletResponse) response;
+			
+			httpRes.setHeader("Access-Control-Allow-Origin", "*");
+			httpRes.setHeader("Access-Control-Allow-Methods", "*");
+			httpRes.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+			httpRes.setHeader("Access-Control-Max-Age", "3600");
+			httpRes.setHeader("Access-Control-Allow-Credentials", "true");
+			httpRes.setHeader("Access-Control-Expose-Headers", "x-access-token");
+
 			if("OPTIONS".equalsIgnoreCase(httpReq.getMethod())) {
 				httpRes.setStatus(HttpServletResponse.SC_OK);
 			} else {
@@ -63,5 +61,5 @@ public class JwtAuthFilter extends GenericFilterBean{
 			e.printStackTrace();
 		}	
 	}
-	
 }
+
