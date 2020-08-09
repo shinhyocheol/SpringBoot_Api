@@ -37,20 +37,10 @@ public class ApiMainController extends BaseController{
 		
 		Map<String, Object> resultMap = new HashMap<>(); 
 		Map<String, Object> dataMap = validateParams(request);
-		resultMap = apiMainService.getMainData(dataMap);
-		return JSONUtil.returnJSON(response, resultMap);
 		
-//		try { 
-//			if("NO_EXIST_DATA".equals(resultMap.get("msg"))) {
-//				return JSONUtil.returnJSON(response, resultMap, 700);
-//			} else if("INTNAL_SERVER_ERROR".equals(resultMap.get("msg"))) {
-//				return JSONUtil.returnJSON(response, resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			resultMap.put("result", false);
-//			return JSONUtil.returnJSON(response, resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
+		resultMap = apiMainService.getMainData(dataMap);
+		
+		return JSONUtil.returnJSON(response, resultMap);
 	}
 	
 }

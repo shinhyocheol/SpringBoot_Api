@@ -1,14 +1,12 @@
 package kr.co.platform.api.sign.service.impl;
 
 import java.util.HashMap;
-
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import kr.co.platform.util.advice.exception.ForbiddenException;
 import kr.co.platform.util.auth.JwtTokenProvider;
 import kr.co.platform.api.sign.dao.ApiSignDAO;
 import kr.co.platform.api.sign.service.ApiSignService;
