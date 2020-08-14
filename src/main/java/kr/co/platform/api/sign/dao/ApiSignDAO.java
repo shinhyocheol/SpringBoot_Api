@@ -1,11 +1,17 @@
 package kr.co.platform.api.sign.dao;
 
-import java.util.Map;
+import javax.transaction.Transactional;
 
+import org.apache.ibatis.annotations.Mapper;
+
+import kr.co.platform.api.sign.dto.Member;
+
+@Transactional
+@Mapper
 public interface ApiSignDAO {
 
-	int insertUserInfo(Map<String, Object> dataMap);
+	int insertUserInfo(Member params);
 
-	Map<String, Object> selectUserInfoById(Map<String, Object> dataMap);
+	Member selectUserInfoById(Member params);
 
 }

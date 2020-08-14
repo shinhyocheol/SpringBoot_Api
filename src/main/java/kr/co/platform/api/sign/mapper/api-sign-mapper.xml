@@ -3,17 +3,21 @@
 
 <mapper namespace="kr.co.platform.api.sign.dao.ApiSignDAO">
 	
-	<insert id="insertUserInfo" parameterType="Map">
-		INSERT INTO members (
-			member_id, member_password, authority_level, member_name,
-			member_email, member_mobile, reg_date
-		) VALUES (
-			#{id}, #{enc_password}, #{authority_level}, #{name},
-			#{email}, #{mobile}, NOW()
-		)	
-	</insert>
+	<resultMap type="kr.co.platform.api.sign.dto.Member" id="resultMembers">
+		<result column="reg_no" property="reg_no" />
+		<result column="member_id" property="id" />
+		<result column="member_password" property="password" />
+		<result column="authority_level" property="authority_level" />
+		<result column="member_name" property="name" />
+		<result column="member_email" property="email" />
+		<result column="member_mobile" property="mobile" />
+		<result column="reg_date" property="reg_date" />
+		<result column="mod_date" property="mod_date" />
+	</resultMap>
 	
-	<select id="selectUserInfoById" parameterType="Map" resultType="Map">
+	<select id="selectUserInfoById" 
+		parameterType="kr.co.platform.api.sign.dto.Member" 
+		resultType="resultMembers">
 		SELECT
 			reg_no AS member_regno,
 			member_id,
@@ -29,6 +33,15 @@
 			member_id = #{id}
 			AND is_deleted != 'Y'
 	</select>
-
 	
+	<insert id="insertUserInfo" parameterType="kr.co.platform.api.sign.dto.Member">
+		INSERT INTO members (
+			member_id, member_password, authority_level, member_name,
+			member_email, member_mobile, reg_date
+		) VALUES (
+			#{id}, #{enc_password}, #{authority_level}, #{name},
+			#{email}, #{mobile}, NOW()
+		)	
+	</insert>
+		
 </mapper>

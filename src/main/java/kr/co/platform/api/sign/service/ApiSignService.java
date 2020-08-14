@@ -1,11 +1,12 @@
 package kr.co.platform.api.sign.service;
 
-import java.util.Map;
+
+import kr.co.platform.api.sign.dto.Member;
 
 public interface ApiSignService {
 
-	Map<String, Object> insertUserInfo(Map<String, Object> dataMap);
+	boolean insertUserInfo(Member params);
 
-	Map<String, Object> loginUserProcessService(Map<String, Object> dataMap);
+	Member loginUserProcessService(Member params) throws Exception;
 
 }

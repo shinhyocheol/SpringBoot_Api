@@ -21,6 +21,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import kr.co.platform.api.sign.dto.Member;
 import kr.co.platform.util.auth.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 
@@ -39,14 +40,14 @@ public class JwtTokenProvider {
 	}
 	
 	/** @method 설명 : jwt 토큰 생성 */
-	public String createToken(Map<String, Object> dataMap) {
+	public String createToken(Member member) {
 		final JwtBuilder builder = Jwts.builder();
 		Date now = new Date();
 		builder.setHeaderParam("typ", "JWT");
 		builder.setSubject("x-access-token").setExpiration(new Date(now.getTime() + tokenValidMilisecond));
-		builder.claim("member_id", dataMap.get("member_id"))
-			   .claim("member_regno", dataMap.get("member_regno"))
-			   .claim("authority_level", dataMap.get("authority_level"));
+		builder.claim("id", member.getId())
+			   .claim("reg_no", member.getReg_no())
+			   .claim("authority_level", member.getAuthority_level());
 		builder.signWith(SignatureAlgorithm.HS256, secretKey);		
 		return builder.compact();
 	}
@@ -71,8 +72,8 @@ public class JwtTokenProvider {
 			Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
 			
 			/** 토큰 기반으로 유저의 정보 파싱*/
-			int member_no = claims.get("member_regno", Integer.class);
-			String member_id = claims.get("member_id", String.class);
+			int member_no = claims.get("reg_no", Integer.class);
+			String member_id = claims.get("id", String.class);
 			String member_authority = claims.get("authority_level", String.class);
 			
 			List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
