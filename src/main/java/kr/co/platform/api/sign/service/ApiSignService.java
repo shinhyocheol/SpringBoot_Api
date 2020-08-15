@@ -5,8 +5,8 @@ import kr.co.platform.api.sign.dto.Member;
 
 public interface ApiSignService {
 
-	boolean insertUserInfo(Member params);
+	boolean insertUserInfo(Member login) throws Exception;
 
-	Member loginUserProcessService(Member params) throws Exception;
+	Member loginUserProcessService(Member info) throws Exception;
 
 }

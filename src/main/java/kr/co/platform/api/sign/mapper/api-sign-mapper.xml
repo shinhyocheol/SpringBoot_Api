@@ -3,7 +3,7 @@
 
 <mapper namespace="kr.co.platform.api.sign.dao.ApiSignDAO">
 	
-	<resultMap type="kr.co.platform.api.sign.dto.Member" id="resultMembers">
+	<resultMap type="kr.co.platform.api.sign.dto.Member" id="Members">
 		<result column="reg_no" property="reg_no" />
 		<result column="member_id" property="id" />
 		<result column="member_password" property="password" />
@@ -11,15 +11,13 @@
 		<result column="member_name" property="name" />
 		<result column="member_email" property="email" />
 		<result column="member_mobile" property="mobile" />
-		<result column="reg_date" property="reg_date" />
-		<result column="mod_date" property="mod_date" />
 	</resultMap>
 	
 	<select id="selectUserInfoById" 
 		parameterType="kr.co.platform.api.sign.dto.Member" 
-		resultType="resultMembers">
+		resultMap="Members">
 		SELECT
-			reg_no AS member_regno,
+			reg_no,
 			member_id,
 			member_password,
 			authority_level,

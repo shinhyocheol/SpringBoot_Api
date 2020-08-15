@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,21 +29,18 @@ public class ApiSignController {
 	public Member apiUserSignin(
 			HttpServletRequest request, 
 			HttpServletResponse response, 
-			Member params) throws Exception {
+			@RequestBody Member login) throws Exception {
 
-		Member result = apiSignService.loginUserProcessService(params);
+		Member result = apiSignService.loginUserProcessService(login);
 		response.setHeader("x-access-token", jwtTokenProvider.createToken(result));
 		
 		return result;
 	}
 
 	@PostMapping(value = { "/signup" }, params = { "id", "password" })
-	public boolean apiUserSignUp(
-			HttpServletRequest request, 
-			HttpServletResponse response, 
-			Member params) throws Exception {
+	public boolean apiUserSignUp(@RequestBody Member info) throws Exception {
 		
-		boolean result = apiSignService.insertUserInfo(params);
+		boolean result = apiSignService.insertUserInfo(info);
 		
 		return result;
 	}

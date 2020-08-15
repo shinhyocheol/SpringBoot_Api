@@ -10,8 +10,8 @@ import kr.co.platform.api.sign.dto.Member;
 @Mapper
 public interface ApiSignDAO {
 
-	int insertUserInfo(Member params);
+	int insertUserInfo(Member login);
 
-	Member selectUserInfoById(Member params);
+	Member selectUserInfoById(Member info);
 
 }

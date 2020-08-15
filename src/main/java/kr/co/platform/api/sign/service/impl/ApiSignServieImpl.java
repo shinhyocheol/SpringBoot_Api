@@ -1,9 +1,5 @@
 package kr.co.platform.api.sign.service.impl;
 
-import java.util.HashMap;
-
-
-import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,21 +21,21 @@ public class ApiSignServieImpl implements ApiSignService {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
-	public Member loginUserProcessService(Member params) throws Exception {
-		Member result = apiSignDao.selectUserInfoById(params);
+	public Member loginUserProcessService(Member login) throws Exception {
+		Member result = apiSignDao.selectUserInfoById(login);
 		if (IsEmpty.check(result)) {
 			throw new Code700Exception("There is no Result Data");
 		}
-		if (!passwordEncoder.matches(params.getPassword(), result.getPassword())) {
+		if (!passwordEncoder.matches(login.getPassword(), result.getPassword())) {
 			throw new ForbiddenException("Passwords do not match");
 		}
 		return result;
 	}
 	
     @Override
-    public boolean insertUserInfo(Member params) {
-    	params.setPassword(passwordEncoder.encode(params.getPassword()));
-		int result = apiSignDao.insertUserInfo(params);
+    public boolean insertUserInfo(Member info) {
+    	info.setPassword(passwordEncoder.encode(info.getPassword()));
+		int result = apiSignDao.insertUserInfo(info);
 		if (IsEmpty.check(result))
 			throw new Code700Exception("The query was executed normally, but not a single data was affected");
 

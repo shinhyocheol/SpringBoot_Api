@@ -17,17 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.platform.api.main.service.ApiMainService;
+import kr.co.platform.api.sign.service.ApiSignService;
 import kr.co.platform.util.JSON.JSONUtil;
+import kr.co.platform.util.auth.JwtTokenProvider;
 import kr.co.platform.util.base.BaseController;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@AllArgsConstructor
 @RestController
-@RequestMapping(value = {"/main"})
 @CrossOrigin("*")
-@Slf4j
+@RequestMapping(value = {"/main"})
 public class ApiMainController extends BaseController{
 	
-	@Autowired
 	private ApiMainService apiMainService;
 	
 	@RequestMapping(value = {""}, method = {RequestMethod.GET})
