@@ -9,22 +9,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Member {
 	
-	private int reg_no;
+	private int regNo;
 	
-	private String id;
+	private String memberId;
 	
-	private String password;
+	private String memberPassword;
 	
-	private String authority_level;
+	private String authorityLevel;
 	
-	private String name;
+	private String memberName;
 	
-	private String email;
+	private String memberEmail;
 	
-	private String mobile;
+	private String memberMobile;
 	
-	private String reg_date;
-	
-	private String mod_date;
-	
+	private String regDate;
+		
 }

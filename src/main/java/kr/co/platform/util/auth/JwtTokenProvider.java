@@ -45,9 +45,9 @@ public class JwtTokenProvider {
 		Date now = new Date();
 		builder.setHeaderParam("typ", "JWT");
 		builder.setSubject("x-access-token").setExpiration(new Date(now.getTime() + tokenValidMilisecond));
-		builder.claim("id", member.getId())
-			   .claim("reg_no", member.getReg_no())
-			   .claim("authority_level", member.getAuthority_level());
+		builder.claim("id", member.getMemberId())
+			   .claim("reg_no", member.getRegNo())
+			   .claim("authority_level", member.getAuthorityLevel());
 		builder.signWith(SignatureAlgorithm.HS256, secretKey);		
 		return builder.compact();
 	}

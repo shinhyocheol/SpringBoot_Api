@@ -3,6 +3,7 @@
 
 <mapper namespace="kr.co.platform.api.sign.dao.ApiSignDAO">
 	
+	<!-- 
 	<resultMap type="kr.co.platform.api.sign.dto.Member" id="Members">
 		<result column="reg_no" property="reg_no" />
 		<result column="member_id" property="id" />
@@ -11,11 +12,12 @@
 		<result column="member_name" property="name" />
 		<result column="member_email" property="email" />
 		<result column="member_mobile" property="mobile" />
-	</resultMap>
+	</resultMap> 
+	-->
 	
 	<select id="selectUserInfoById" 
 		parameterType="kr.co.platform.api.sign.dto.Member" 
-		resultMap="Members">
+		resultType="kr.co.platform.api.sign.dto.Member">
 		SELECT
 			reg_no,
 			member_id,
@@ -24,11 +26,11 @@
 			member_name,
 			member_email,
 			member_mobile,
-			DATE_FORMAT(last_login_dt, '%Y.%m.%d %H:%i:%s') AS last_login_dt
+			DATE_FORMAT(reg_date, "%Y.%m.%d %H:%i:%s") AS reg_date
 		FROM
 			members
 		WHERE
-			member_id = #{id}
+			member_id = #{memberId}
 			AND is_deleted != 'Y'
 	</select>
 	

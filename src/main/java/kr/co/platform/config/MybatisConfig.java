@@ -23,6 +23,8 @@ public class MybatisConfig {
 		sqlSessionFactory.setDataSource(dataSource);		
 		
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		sqlSessionFactory.setTypeAliasesPackage("kr.co.platform.*.*.dto");
+		sqlSessionFactory.setConfigLocation(resolver.getResource("classpath:mybatis-config.xml"));
 		sqlSessionFactory.setMapperLocations(resolver.getResources("classpath:**/mapper/*.xml"));
 		
 		return sqlSessionFactory.getObject();

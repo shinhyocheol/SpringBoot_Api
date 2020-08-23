@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.platform.util.auth.JwtTokenProvider;
@@ -25,7 +26,7 @@ public class ApiSignController {
 	
 	private JwtTokenProvider jwtTokenProvider;
 
-	@PostMapping(value = "/signin", params = { "id", "password" })
+	@PostMapping(value = "/signin")
 	public Member apiUserSignin(
 			HttpServletRequest request, 
 			HttpServletResponse response, 
@@ -37,7 +38,7 @@ public class ApiSignController {
 		return result;
 	}
 
-	@PostMapping(value = { "/signup" }, params = { "id", "password" })
+	@PostMapping(value = { "/signup" }, params = { "memberId", "memberPassword" })
 	public boolean apiUserSignUp(@RequestBody Member info) throws Exception {
 		
 		boolean result = apiSignService.insertUserInfo(info);
