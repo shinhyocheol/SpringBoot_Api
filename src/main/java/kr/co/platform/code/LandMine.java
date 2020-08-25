@@ -6,7 +6,7 @@ import java.util.Random;
 public class LandMine {
 	
 	// 지뢰 표시
-	private static final String MINE = " X "; 
+	private static final String MINE = " * "; 
 	// 자신을 제외한 주변 8개지점에 지뢰가 하나도 없는 경우 표시
     private static final String NONE = " 0 "; 
     // 설치 할 지뢰 수
@@ -36,24 +36,28 @@ public class LandMine {
     	
     	LandMine landMine = new LandMine(); // 클래스 사용선언
     	
-    	landMine.setMineLocation();
-    	landMine.setBoardValues();
+    	landMine.setMineLocation(); // 지뢰 배치
+    	landMine.setBoardValues(); // 자신을 제외하고 주변 8칸의 지뢰 카운트 수집
     	
+    	/**
+    	 * 출력
+    	 */
     	System.out.println("ROW : " + ROW);
         System.out.println("COL : " + COL);
         System.out.println("Total Mine Count: " + COL);
-        System.out.println("--------------------------------");
 
+        System.out.println("--------------------------------");
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
                 System.out.print(mineAndCountList[i][j]);
             }
             System.out.println();
         }
+        System.out.println("--------------------------------");
     }
 
     /**
-     * Mine 위치 설정
+     * 지뢰 배치(배치 위치는 랜덤)
      */
     public void setMineLocation() {
     	
@@ -70,7 +74,7 @@ public class LandMine {
     }
 
     /**
-     * 배열의 값(주변 mine 갯수)설정
+     * 배열의 값(주변 mine 갯수) 수집
      */
     public void setBoardValues() {
         for (int i = 0; i < ROW; i++) {
@@ -103,7 +107,7 @@ public class LandMine {
     }
 
     /**
-     * 기준 위치의 값이 지롸인지 체크
+     * 기준 위치가 지뢰인 경우 true 리턴
      */
     private boolean isMine(int row, int col) {
         try {
@@ -114,7 +118,7 @@ public class LandMine {
     }
     
     /**
-     * 기준 위치의 지뢰가 아닌경우를 리턴
+     * 기준 위치가 지뢰가 아닌경우 false 리턴
      */
     private boolean isNotMine(int i, int j) {
         return !isMine(i, j);
