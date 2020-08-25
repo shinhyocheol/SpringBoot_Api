@@ -5,12 +5,14 @@ import java.util.Random;
 
 public class LandMine {
 	
-	// 지뢰 표시
+	// 자신을 제외한 주변 8개지점에 지뢰가 하나도 없는 경우 표시(기본값)
+	private static final String NONE = " 0 "; 
+	// 지뢰
 	private static final String MINE = " * "; 
-	// 자신을 제외한 주변 8개지점에 지뢰가 하나도 없는 경우 표시
-    private static final String NONE = " 0 "; 
+    
     // 설치 할 지뢰 수
     private static final int MINE_CNT = 10; 
+    
     // 로우 수 설정(10)
     private static final int ROW = 10; 
     // 컬럼 수 설정(10)
@@ -24,24 +26,20 @@ public class LandMine {
      * 2차원 배열이기 때문에 한번에 fill을 통해 초기화 할 수 없고, ROW 수만큼 만복하여 COL에 해당되는 요소를 초기화한다.
      */
     public LandMine() {
-    	
     	mineAndCountList = new String[ROW][COL];
     	for (String init[] : mineAndCountList) {
     		Arrays.fill(init, NONE);    				
-		}
-    	
+		}    	
     }
     
     public static void main(String[] args) {
     	
-    	LandMine landMine = new LandMine(); // 클래스 사용선언
+    	LandMine landMine = new LandMine();
     	
     	landMine.setMineLocation(); // 지뢰 배치
     	landMine.setBoardValues(); // 자신을 제외하고 주변 8칸의 지뢰 카운트 수집
     	
-    	/**
-    	 * 출력
-    	 */
+    	/** 출력 */
     	System.out.println("ROW : " + ROW);
         System.out.println("COL : " + COL);
         System.out.println("Total Mine Count: " + COL);
@@ -74,7 +72,7 @@ public class LandMine {
     }
 
     /**
-     * 배열의 값(주변 mine 갯수) 수집
+     * 배열 내 기준 위치순번에 지뢰가 아닌 경우 주변 지역 지뢰 카운트 배치
      */
     public void setBoardValues() {
         for (int i = 0; i < ROW; i++) {
@@ -85,11 +83,7 @@ public class LandMine {
     }
 
     /**
-     * 기준 위치 주변 mine 갯수
-     *
-     * @param row
-     * @param col
-     * @return 주변 mine 갯수 String
+     * 기준 위치 주변에 지뢰수 
      */
     public String nearMineCheck(int row, int col) {
         int count = 0;
@@ -116,7 +110,6 @@ public class LandMine {
             return false;
         }
     }
-    
     /**
      * 기준 위치가 지뢰가 아닌경우 false 리턴
      */
