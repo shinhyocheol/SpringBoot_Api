@@ -3,15 +3,22 @@ package kr.co.platform.code;
 import java.util.Arrays;
 import java.util.Random;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MineCheckBoard {
 
 	/** 지뢰 */
 	private String mine; 
 	/** 설치 할 지뢰수 */
-	private int mineCnt; 
+	private int defaultMineCnt; 
 	/** 기본 로우 수 */
 	private int defaultRow; 
 	/** 기본 컬럼 수 */
@@ -19,35 +26,10 @@ public class MineCheckBoard {
 	/** 지뢰 혹은 주변 지뢰수를 담은 배열 */
 	private String[][] mineAndCountList;
 
-	/** 
-	 * <초기화 시 값 설정>
-	 * mine : 지뢰
-	 * defaultMineCount = 10
-	 * defaultRow = 10
-	 * defaultCol = 10
-	 * mineAndCountList : 2중으로 설정된 배열이기 때문에 한번에 fill을 통해 초기화 할 수 없고, 
-	 * ROW 만큼 반복문을 통해 ROW[COL]순번에 해당되는 요소를 0으로 초기화한다.
-	 */ 
-	public MineCheckBoard() {
-
-		this.mine = " * ";
-
-		this.mineCnt = 10;
-
-		this.defaultRow = 10;
-
-		this.defaultCol = 10;
-
-		this.mineAndCountList = new String[defaultRow][defaultCol];
-		for (String list[] : mineAndCountList) {
-			Arrays.fill(list, " 0 ");    				
-		}  	
-	}
-
 	/** 지뢰 배치(배치 위치는 랜덤) */
 	public void setMine() {
 		Random random = new Random();
-		for (int i = 0; i < mineCnt; i++) {
+		for (int i = 0; i < defaultMineCnt; i++) {
 			int ranRow = random.nextInt(defaultRow);
 			int ranCol = random.nextInt(defaultCol);
 			/** 
@@ -101,7 +83,26 @@ public class MineCheckBoard {
 	}
 
 	public static void main(String[] args) {
-		MineCheckBoard mineCheckBoard = new MineCheckBoard();
+		/** 클래스 사용과 동시에 빌더를 통한 각 변수들 기본 값 설정 
+		 * <설정 값 설명>
+		 * mine : 지뢰
+		 * defaultMineCount = 10
+		 * defaultRow = 10
+		 * defaultCol = 10
+		 * mineAndCountList : 2중으로 설정된 배열이므로 길이 설정을 빌더를 통해 설정한 후
+		 * 상위 배열의 langth 만큼 반복문을 돌려 하위 배열을 모두 " 0 "으로 채운다.
+		 */
+		MineCheckBoard mineCheckBoard = MineCheckBoard.builder()
+				.defaultRow(10)
+				.defaultCol(10)
+				.defaultMineCnt(10)
+				.mine(" * ")
+				.mineAndCountList(new String[10][10])
+				.build();
+		for (String list[] : mineCheckBoard.getMineAndCountList()) {
+			Arrays.fill(list, " 0 ");    				
+		}
+
 		/** 지뢰 배치 */
 		mineCheckBoard.setMine(); 
 		/** 자신의 위치가 지뢰가 아닌경우 자신을 제외한 주변 8칸의 지뢰수를 배치 */
