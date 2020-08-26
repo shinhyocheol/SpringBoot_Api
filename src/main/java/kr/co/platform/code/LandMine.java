@@ -16,11 +16,12 @@ public class LandMine {
     // 컬럼 수 설정(10)
     private static final int COL = 10; 
 
-    // 자신을 제외한 주변 8개지점의 지뢰의 수 혹은 지뢰를 담은 이차원 배열(10X10)
+    // 지뢰의 수 혹은 지뢰를 담은 배열(10X10)
     private static String[][] mineAndCountList; 
     
     /**
      * 리스트 초기화
+     * fill : java method
      * 2차원 배열이기 때문에 한번에 fill을 통해 초기화 할 수 없고, ROW 수만큼 만복하여 COL에 해당되는 요소를 초기화한다.
      */
     public LandMine() {
