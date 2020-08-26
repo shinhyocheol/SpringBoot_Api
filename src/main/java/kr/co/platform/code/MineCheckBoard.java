@@ -6,7 +6,6 @@ import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -90,7 +89,7 @@ public class MineCheckBoard {
 		 * defaultRow = 10
 		 * defaultCol = 10
 		 * mineAndCountList : 2중으로 설정된 배열이므로 길이 설정을 빌더를 통해 설정한 후
-		 * 상위 배열의 langth 만큼 반복문을 돌려 하위 배열을 모두 " 0 "으로 채운다.
+		 * 상위 배열의 langth 만큼 반복문을 돌려 하위 배열의 요소를 모두 " 0 "으로 채운다.
 		 */
 		MineCheckBoard mineCheckBoard = MineCheckBoard.builder()
 				.defaultRow(10)
@@ -107,16 +106,16 @@ public class MineCheckBoard {
 		mineCheckBoard.setMine(); 
 		/** 자신의 위치가 지뢰가 아닌경우 자신을 제외한 주변 8칸의 지뢰수를 배치 */
 		mineCheckBoard.setNearMineCount();     	
-
+		
 		System.out.println("----------지뢰찾기 출력----------");
-		for (int i = 0; i < mineCheckBoard.getDefaultRow(); i++) {
-			for (int j = 0; j < mineCheckBoard.getDefaultCol(); j++) {
-				System.out.print(mineCheckBoard.getMineAndCountList()[i][j]);
+		for (String list[] : mineCheckBoard.getMineAndCountList()) {
+			for (String value : list) {
+				System.out.print(value);				
 			}
 			System.out.println();
 		}
 		System.out.println("-----------------------------");
-
+		
 	}
 
 }
