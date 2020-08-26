@@ -1,7 +1,6 @@
 package kr.co.platform.code;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class MineCheckBoard {
 
@@ -86,18 +85,18 @@ public class MineCheckBoard {
 
 		/** 지뢰 배치 */
 		mineCheckBoard.setMine(); 
-		/** 자신의 위치가 지뢰가 아닌경우 자신을 제외한 주변 8칸의 지뢰수를 배치 */
+		/** 자신의 위치가 지뢰가 아닌경우 자신을 제외한 주변 8칸의 지뢰를 탐색하고 집계한 카운터를 배치 */
 		mineCheckBoard.setNearMineCount();     	
 		
-		System.out.println("----------지뢰찾기 출력----------");
+		System.out.println("---------- 지뢰찾기 출력 ----------");
 		for (String list[] : mineCheckBoard.mineAndCountList) {
 			for (String value : list) {
 				System.out.print(value);				
 			}
 			System.out.println();
 		}
-		System.out.println("-----------------------------");
+		System.out.println("-------------------------------");
 		
 	}
-
+	
 }
