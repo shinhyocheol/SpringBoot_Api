@@ -37,7 +37,10 @@ public class MineCheckBoard {
 		for (int i = 0; i < DEFAULT_MINE_COUNT; i++) {
 			int ranRow = random.nextInt(DEFAULT_ROW);
 			int ranCol = random.nextInt(DEFAULT_COL);
-			/** 배치할 위치가 중복될 수 있으므로 중복체크를 통해 중복 시 i를 차감하고 해당 순번을 다시 돌아 지뢰 배치*/
+			/** 
+			 * 배치하려는 위치가 이미 지뢰가 존재하여 중복될 수 있으므로 중복체크를 통해 
+			 * 중복 시 i를 차감하고 해당 순번을 다시 돌아 다른곳에 지뢰 배치
+			 */
 			if(isMine(ranRow, ranCol)) {
 				i--;
 			} else {
@@ -96,20 +99,13 @@ public class MineCheckBoard {
 		/** 자신의 위치가 지뢰가 아닌경우 자신을 제외한 주변 8칸의 지뢰수를 배치 */
 		mineCheckBoard.setNearMineCount();     	
 
-		int mineCnt = 0;
-		System.out.println();
 		System.out.println("----------지뢰찾기 출력----------");
 		for (int i = 0; i < DEFAULT_ROW; i++) {
 			for (int j = 0; j < DEFAULT_COL; j++) {
 				System.out.print(mineCheckBoard.mineAndCountList[i][j]);
-				if(mineCheckBoard.mineAndCountList[i][j].equals(MINE)) mineCnt++;
 			}
 			System.out.println();
 		}
-		System.out.println("-----------------------------");
-		System.out.println("로우 : " + DEFAULT_ROW);
-		System.out.println("컬럼 : " + DEFAULT_COL);
-		System.out.println("설치 된 지뢰수 : " + mineCnt);
 		System.out.println("-----------------------------");
 
 	}
