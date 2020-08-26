@@ -3,27 +3,18 @@ package kr.co.platform.code;
 import java.util.Arrays;
 import java.util.Random;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class MineCheckBoard {
 
 	/** 지뢰 */
-	private String mine; 
+	private String mine = " * "; 
 	/** 설치 할 지뢰수 */
-	private int defaultMineCnt; 
+	private int defaultMineCnt = 10; 
 	/** 기본 로우 수 */
-	private int defaultRow; 
+	private int defaultRow = 10; 
 	/** 기본 컬럼 수 */
-	private int defaultCol; 
+	private int defaultCol = 10; 
 	/** 지뢰 혹은 주변 지뢰수를 담은 배열 */
-	private String[][] mineAndCountList;
+	private String[][] mineAndCountList = new String[defaultRow][defaultCol];
 
 	/** 지뢰 배치(배치 위치는 랜덤) */
 	public void setMine() {
@@ -82,23 +73,14 @@ public class MineCheckBoard {
 	}
 
 	public static void main(String[] args) {
-		/** 클래스 사용과 동시에 빌더를 통한 각 변수들 기본 값 설정 
+		MineCheckBoard mineCheckBoard = new MineCheckBoard();
+
+		/**
 		 * <설정 값 설명>
-		 * mine : 지뢰
-		 * defaultMineCount = 10
-		 * defaultRow = 10
-		 * defaultCol = 10
 		 * mineAndCountList : 2중으로 설정된 배열이므로 길이 설정을 빌더를 통해 설정한 후
 		 * 상위 배열의 langth 만큼 반복문을 돌려 하위 배열의 요소를 모두 " 0 "으로 채운다.
 		 */
-		MineCheckBoard mineCheckBoard = MineCheckBoard.builder()
-				.defaultRow(10)
-				.defaultCol(10)
-				.defaultMineCnt(10)
-				.mine(" * ")
-				.mineAndCountList(new String[10][10])
-				.build();
-		for (String list[] : mineCheckBoard.getMineAndCountList()) {
+		for (String list[] : mineCheckBoard.mineAndCountList) {
 			Arrays.fill(list, " 0 ");    				
 		}
 
@@ -108,7 +90,7 @@ public class MineCheckBoard {
 		mineCheckBoard.setNearMineCount();     	
 		
 		System.out.println("----------지뢰찾기 출력----------");
-		for (String list[] : mineCheckBoard.getMineAndCountList()) {
+		for (String list[] : mineCheckBoard.mineAndCountList) {
 			for (String value : list) {
 				System.out.print(value);				
 			}
