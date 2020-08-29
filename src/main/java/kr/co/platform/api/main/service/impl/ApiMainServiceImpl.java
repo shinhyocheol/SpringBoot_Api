@@ -19,17 +19,7 @@ public class ApiMainServiceImpl implements ApiMainService{
 	@Override
 	public Map<String, Object> getMainData(Map<String, Object> dataMap) {
 		Map<String, Object> resultMap = new HashMap<>();
-		Map<String, Object> data = apiMainDao.selectMainData(dataMap);
-		resultMap.put("data", data);
-//		try {
-//			
-//			resultMap.put("result", true);
-//			resultMap.put("msg", "SUCCESS");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			resultMap.put("result", false);
-//			resultMap.put("msg", "INTERNAL_SERVER_ERROR");
-//		} 
+		resultMap.put("data", apiMainDao.selectMainData(dataMap)); 
 		return resultMap;
 	}
 
