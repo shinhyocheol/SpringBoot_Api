@@ -26,7 +26,6 @@ public class ApiSignServieImpl implements ApiSignService {
 		if (IsEmpty.check(result)) {
 			throw new Code700Exception("There is no Result Data");
 		}
-		System.out.println(login.getMemberPassword());
 		
 		if (!passwordEncoder.matches(login.getMemberPassword(), result.getMemberPassword())) {
 			throw new ForbiddenException("Passwords do not match");
@@ -36,9 +35,8 @@ public class ApiSignServieImpl implements ApiSignService {
 	
     @Override
     public boolean insertUserInfo(Member info) {
-    	info.setMemberPassword(passwordEncoder.encode(info.getMemberPassword()));
-		int result = apiSignDao.insertUserInfo(info);
-		if (IsEmpty.check(result))
+    	info.setMemberPassword(passwordEncoder.encode(info.getMemberPassword()));		
+		if(IsEmpty.check(apiSignDao.insertUserInfo(info))) 
 			throw new Code700Exception("The query was executed normally, but not a single data was affected");
 
 		return true;

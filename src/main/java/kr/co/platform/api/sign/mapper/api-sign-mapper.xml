@@ -3,18 +3,6 @@
 
 <mapper namespace="kr.co.platform.api.sign.dao.ApiSignDAO">
 	
-	<!-- 
-	<resultMap type="kr.co.platform.api.sign.dto.Member" id="Members">
-		<result column="reg_no" property="reg_no" />
-		<result column="member_id" property="id" />
-		<result column="member_password" property="password" />
-		<result column="authority_level" property="authority_level" />
-		<result column="member_name" property="name" />
-		<result column="member_email" property="email" />
-		<result column="member_mobile" property="mobile" />
-	</resultMap> 
-	-->
-	
 	<select id="selectUserInfoById" 
 		parameterType="kr.co.platform.api.sign.dto.Member" 
 		resultType="kr.co.platform.api.sign.dto.Member">

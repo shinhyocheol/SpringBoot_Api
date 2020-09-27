@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,11 +40,8 @@ public class ApiSignController {
 	}
 
 	@PostMapping(value = { "/signup" }, params = { "memberId", "memberPassword" })
-	public boolean apiUserSignUp(@RequestBody Member info) throws Exception {
-		
-		boolean result = apiSignService.insertUserInfo(info);
-		
-		return result;
+	public ResponseEntity<Boolean> apiUserSignUp(@RequestBody Member info) throws Exception {
+		return ResponseEntity.ok(apiSignService.insertUserInfo(info));
 	}
 }
 
