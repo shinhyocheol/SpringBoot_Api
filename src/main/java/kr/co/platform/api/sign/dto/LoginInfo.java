@@ -1,5 +1,7 @@
 package kr.co.platform.api.sign.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,22 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member {
+public class LoginInfo {
 	
-	private int regNo;
-	
+	@NotBlank(message = "'memberId' is a required input value")
 	private String memberId;
 	
+	@NotBlank(message = "'memberPassword' is a required input value")
 	private String memberPassword;
-	
-	private String authorityLevel;
-	
-	private String memberName;
-	
-	private String memberEmail;
-	
-	private String memberMobile;
-	
-	private String regDate;
 		
 }

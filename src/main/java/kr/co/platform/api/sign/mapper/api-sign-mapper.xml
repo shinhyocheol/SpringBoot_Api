@@ -4,8 +4,8 @@
 <mapper namespace="kr.co.platform.api.sign.dao.ApiSignDAO">
 	
 	<select id="selectUserInfoById" 
-		parameterType="kr.co.platform.api.sign.dto.Member" 
-		resultType="kr.co.platform.api.sign.dto.Member">
+		parameterType="kr.co.platform.api.sign.dto.LoginInfo" 
+		resultType="kr.co.platform.api.sign.dto.MemberResultDetail">
 		SELECT
 			reg_no,
 			member_id,
@@ -22,7 +22,20 @@
 			AND is_deleted != 'Y'
 	</select>
 	
-	<insert id="insertUserInfo" parameterType="kr.co.platform.api.sign.dto.Member">
+	
+	<select id="selectIsMemberFindById"
+			parameterType="String"
+			resultType="int">
+		SELECT DISTINCT
+			COUNT(*) AS cnt
+		FROM
+			members AS mb
+		WHERE
+			mb.is_deleted != 'Y'
+			AND mb.member_id = #{id}	
+	</select>
+	
+	<insert id="insertUserInfo" parameterType="kr.co.platform.api.sign.dto.RegMemberInfo">
 		INSERT INTO members (
 			member_id, member_password, authority_level, member_name,
 			member_email, member_mobile, reg_date

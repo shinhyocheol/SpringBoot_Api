@@ -1,7 +1,6 @@
 package kr.co.platform.api.sign.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,11 +8,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.platform.util.auth.JwtTokenProvider;
-import kr.co.platform.api.sign.dto.Member;
+import kr.co.platform.api.sign.dto.LoginInfo;
+import kr.co.platform.api.sign.dto.MemberResultDetail;
+import kr.co.platform.api.sign.dto.RegMemberInfo;
 import kr.co.platform.api.sign.service.ApiSignService;
 import lombok.AllArgsConstructor;
 
@@ -28,20 +28,22 @@ public class ApiSignController {
 	private JwtTokenProvider jwtTokenProvider;
 
 	@PostMapping(value = "/signin")
-	public Member apiUserSignin(
-			HttpServletRequest request, 
-			HttpServletResponse response, 
-			@RequestBody Member login) throws Exception {
+	public ResponseEntity<MemberResultDetail> apiUserSignin(
+			@RequestBody LoginInfo login) throws Exception {
 
-		Member result = apiSignService.loginUserProcessService(login);
-		response.setHeader("x-access-token", jwtTokenProvider.createToken(result));
+		MemberResultDetail result = apiSignService.loginUserProcessService(login);
 		
-		return result;
+		return ResponseEntity.ok()
+							 .header("x-accss-token", jwtTokenProvider.createToken(result))
+							 .body(result);
 	}
 
 	@PostMapping(value = { "/signup" }, params = { "memberId", "memberPassword" })
-	public ResponseEntity<Boolean> apiUserSignUp(@RequestBody Member info) throws Exception {
-		return ResponseEntity.ok(apiSignService.insertUserInfo(info));
+	public ResponseEntity<Boolean> apiUserSignUp(
+			@RequestBody @Valid RegMemberInfo info) throws Exception {
+		
+		return ResponseEntity.ok()
+							 .body(apiSignService.insertUserInfo(info));
 	}
 }
 
