@@ -38,7 +38,7 @@ public class ApiSignController {
 							 .body(result);
 	}
 
-	@PostMapping(value = { "/signup" }, params = { "memberId", "memberPassword" })
+	@PostMapping(value = { "/signup" })
 	public ResponseEntity<Boolean> apiUserSignUp(
 			@RequestBody @Valid RegMemberInfo info) throws Exception {
 		

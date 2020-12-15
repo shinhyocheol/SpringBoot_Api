@@ -14,8 +14,8 @@ public interface ApiSignDAO {
 
 	int insertUserInfo(RegMemberInfo regMember);
 
-	MemberResultDetail selectUserInfoById(LoginInfo info);
+	MemberResultDetail selectMemberFindById(LoginInfo info);
 
-	int selectIsMemberFindById(String memberId);
+	int selectDuplicatedMemberFindById(String memberId);
 
 }
