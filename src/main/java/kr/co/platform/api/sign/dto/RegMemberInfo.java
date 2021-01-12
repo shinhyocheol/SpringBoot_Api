@@ -1,5 +1,6 @@
 package kr.co.platform.api.sign.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class RegMemberInfo {
 	private String memberName;
 	
 	@NotBlank(message = "'memberEmail' is a required input value")
+	@Email
 	private String memberEmail;
 	
 	@NotBlank(message = "'memberMobile' is a required input value")
