@@ -3,7 +3,7 @@
 
 <mapper namespace="kr.co.platform.api.sign.dao.ApiSignDAO">
 	
-	<select id="selectUserInfoById" 
+	<select id="selectMemberFindById" 
 		parameterType="kr.co.platform.api.sign.dto.LoginInfo" 
 		resultType="kr.co.platform.api.sign.dto.MemberResultDetail">
 		SELECT
@@ -23,7 +23,7 @@
 	</select>
 	
 	
-	<select id="selectIsMemberFindById"
+	<select id="selectDuplicatedMemberFindById"
 			parameterType="String"
 			resultType="int">
 		SELECT DISTINCT

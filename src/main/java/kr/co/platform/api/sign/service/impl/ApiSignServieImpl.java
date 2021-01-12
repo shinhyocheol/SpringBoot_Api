@@ -27,15 +27,13 @@ public class ApiSignServieImpl implements ApiSignService {
 	@Override
 	public MemberResultDetail loginUserProcessService(LoginInfo login) throws Exception {
 		
-		MemberResultDetail result = apiSignDao.selectUserInfoById(login);
+		MemberResultDetail result = apiSignDao.selectMemberFindById(login);
 		
-		if (IsEmpty.check(result)) {
+		if (IsEmpty.check(result))
 			throw new Code700Exception("There is no Result Data");
-		}
 		
-		if (!passwordEncoder.matches(login.getMemberPassword(), result.getMemberPassword())) {
+		if (!passwordEncoder.matches(login.getMemberPassword(), result.getMemberPassword()))
 			throw new ForbiddenException("Passwords do not match");
-		}
 		
 		return result;
 	}
@@ -45,8 +43,8 @@ public class ApiSignServieImpl implements ApiSignService {
     	
     	regMember.setMemberPassword(passwordEncoder.encode(regMember.getMemberPassword()));		
 		
-    	if(!IsEmpty.check(apiSignDao.selectIsMemberFindById(regMember.getMemberId())))
-			throw new DuplicatedException("Duplicate ID");
+    	if(!IsEmpty.check(apiSignDao.selectDuplicatedMemberFindById(regMember.getMemberId())))
+			throw new DuplicatedException("There is Duplicated ID");
     	
     	if(IsEmpty.check(apiSignDao.insertUserInfo(regMember))) 
 			throw new Code700Exception("The query was executed normally, but not a single data was affected");
