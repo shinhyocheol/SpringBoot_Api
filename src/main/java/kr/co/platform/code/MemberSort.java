@@ -14,7 +14,6 @@ public class MemberSort {
 	 //표준입력을 수행할 Scanner를 선언한다 
     public static Scanner scanner = new Scanner(System.in);
 
-
     public static void main(String[] args)
     {   //프로그램의 시작부 
 			
