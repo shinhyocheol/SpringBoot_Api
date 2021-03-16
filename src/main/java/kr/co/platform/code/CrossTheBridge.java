@@ -11,6 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * @문제 : 다리 빨리 건너기
+ */
 public class CrossTheBridge {
 
 	public static void main(String[] args) throws Exception {

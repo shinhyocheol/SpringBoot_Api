@@ -3,6 +3,9 @@ package kr.co.platform.code;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * @설명 : BFS(넓이우선탐색)
+ */
 public class BFS {
 	
 	
@@ -46,25 +49,30 @@ public class BFS {
 		
 		// 큐(Queue)가 안에 아무것도 없을때까지 반복
 		while (queue.size() != 0) {
+			
 			// 방문한 노드를 큐에서 추출(dequeue)하고 값을 출력
 			s = queue.poll();
 			System.out.print(s + " ");
 			
 			// 방문한 노드와 인접한 모든 노드를 가져온다.
 			Iterator<Integer> i = adj[s].listIterator();
+			
 			while (i.hasNext()) {
+				
 				int n = i.next();
+				
 				// 방문하지 않은 노드라면 방문한 것으로 표시하고 큐에 삽입(enqueue)
 				if (!visited[n]) {
 					visited[n] = true;
 					queue.add(n);
 				}
+				
 			}
 		}
 	}
 	
 	/**
-	 * @BFS 검색 실행 main 함수
+	 * 검색 실행 main 함수
 	 */
 	public static void main(String args[]) {
 		

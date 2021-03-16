@@ -1,5 +1,6 @@
 package kr.co.platform.code;
 
+/** 도둑의 금은방 털기 */
 public class KnapsackProblem {
 
 	public static void main(String[] args) {

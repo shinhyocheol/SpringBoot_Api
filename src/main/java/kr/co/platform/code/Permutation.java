@@ -25,6 +25,7 @@ public class Permutation {
 			
 			if(check[i])
 				continue;
+			
 			check[i] = true;
 			picked.add(i);
 			pick(n, picked, check);

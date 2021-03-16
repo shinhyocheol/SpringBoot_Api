@@ -6,6 +6,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @설명 : 연락처 정렬하기
+ */
 public class MemberSort {
 
 	 //표준입력을 수행할 Scanner를 선언한다 
@@ -28,7 +31,10 @@ public class MemberSort {
 			}
 			
 			// 리스트에 저장 후 Comparator 인터페이스를 통해 이름순으로 먼저 정렬 후 연락처순으로 한번 더 정렬
-			list.sort(Comparator.comparing(Member::getName).thenComparing(Member::getName).thenComparing(Member::getMobile));;
+			list.sort(Comparator
+					.comparing(Member::getName)
+					.thenComparing(Member::getName)
+					.thenComparing(Member::getMobile));;
 			
 			// 출력
 			System.out.println();

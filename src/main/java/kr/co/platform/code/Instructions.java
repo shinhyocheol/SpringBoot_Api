@@ -2,6 +2,9 @@ package kr.co.platform.code;
 
 import javax.persistence.criteria.CriteriaBuilder.Case;
 
+/**
+ * @설명 : 로봇 조작
+ */
 public class Instructions {
 
 	public static void main(String[] args) {

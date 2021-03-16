@@ -1,5 +1,9 @@
 package kr.co.platform.code;
 
+/**
+ * @설명 : 체스판에서 흰칸에 존재하는 말의 수 구하기
+ * @참고 : 말 -> F
+ */
 public class WhiteBoardChk {
 
 	public static void main(String[] args) {

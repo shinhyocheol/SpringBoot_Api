@@ -1,5 +1,9 @@
 package kr.co.platform.code;
 
+/**
+ * @설명 : 가장 긴 단소수열 찾아내기
+ * @참고 : 단소수열은 증가수열이 될 수도 있고 증감수열이 될 수도 있다.
+ */
 public class LisOrLds {
 
 	

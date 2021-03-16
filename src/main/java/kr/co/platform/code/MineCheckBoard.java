@@ -2,6 +2,9 @@ package kr.co.platform.code;
 
 import java.util.*;
 
+/**
+ * @설명 : 지뢰찾기
+ */
 public class MineCheckBoard {
 
 	/** 지뢰 */
