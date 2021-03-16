@@ -4,10 +4,10 @@ public class FibonacciNumbers {
 	
 	public static void main(String[] args) {
 		
-		int a = 0;
-		int b = 1;
+		long a = 0;
+		long b = 1;
 		
-		int sum = 0;
+		long sum = 0;
 		
 		for (int i = 0; i < 80; i++) {
 			if (i > 0) {
